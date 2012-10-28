@@ -63,7 +63,10 @@ describe "User pages" do
 	
 	describe "edit" do 
 		let(:user) { FactoryGirl.create(:user) }
-		before { visit edit_user_path(user) }
+		before do 
+			sign_in user
+			visit edit_user_path(user) 
+		end
 
 		describe "page" do
 			it { should have_selector('h1',    text: "Update your profile") }
@@ -80,7 +83,6 @@ describe "User pages" do
 		describe "with valid information" do
       		let(:new_name)  { "New Name" }
       		let(:new_email) { "new@example.com" }
-      		
       		before do
         		fill_in "Name",             with: new_name
         		fill_in "Email",            with: new_email
